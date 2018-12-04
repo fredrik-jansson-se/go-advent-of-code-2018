@@ -10,6 +10,7 @@ func Run() {
 	}
 
 	run1(lines)
+	run2(lines)
 }
 
 type CharCount map[rune]uint
@@ -46,4 +47,28 @@ func run1(lines []string) {
 	}
 
 	fmt.Printf("day2-1: %v\n", twoCnt*threeCnt)
+}
+
+func run2(lines []string) {
+	for i1, l1 := range lines {
+		for _, l2 := range lines[i1+1:] {
+			diff := 0
+			for i := 0; i < len(l1) && diff < 2; i++ {
+				if l1[i] != l2[i] {
+					diff += 1
+				}
+			}
+			if diff < 2 {
+				fmt.Printf("%v - %v\n", l1, l2)
+				for i := 0; i < len(l1) && diff < 2; i++ {
+					if l1[i] == l2[i] {
+						fmt.Printf("%c", l1[i])
+					}
+				}
+
+				fmt.Printf("\n")
+				return
+			}
+		}
+	}
 }
